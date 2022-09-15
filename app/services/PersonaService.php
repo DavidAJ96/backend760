@@ -1,6 +1,7 @@
 <?php
 namespace App\services;
 
+use App\Http\Requests\PersonaRequest;
 use App\repositories\PersonaRepository;
 
 class PersonaService extends BaseService{
@@ -8,4 +9,7 @@ class PersonaService extends BaseService{
     {
         parent::__construct(new PersonaRepository());
     }
+
+
+
 }

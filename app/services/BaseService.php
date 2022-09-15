@@ -2,6 +2,8 @@
 namespace App\services;
 
 use Exception;
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use InvalidArgumentException;
@@ -34,7 +36,7 @@ class BaseService {
 
     }
 
-    public function store($data){
+    public function store(array $data){
         DB::beginTransaction();
 
         try {
