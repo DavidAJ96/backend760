@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\Persona\PersonaStoreController;
 use App\Http\Controllers\Api\PersonaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -19,4 +20,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::resource('personas',PersonaController::class);
+Route::post('personas',PersonaStoreController::class);
+//Route::resource('personas',PersonaController::class);

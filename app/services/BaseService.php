@@ -46,7 +46,7 @@ class BaseService {
             DB::rollBack();
             Log::info($e->getMessage());
 
-            throw new InvalidArgumentException('No se pudo guardar el registro');
+            throw new InvalidArgumentException($e->getMessage());
         }
 
         DB::commit();

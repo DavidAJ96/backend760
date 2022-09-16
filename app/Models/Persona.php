@@ -24,7 +24,8 @@ class Persona extends Model
         "depto"           ,
         "barrio"          ,
         "id_localidad"    ,
-        "telefono"
+        "telefono",
+        "correo"
     ];
     public function localidad(){
         return $this->belongsTo(Localidad::class,'id_localidad','id');

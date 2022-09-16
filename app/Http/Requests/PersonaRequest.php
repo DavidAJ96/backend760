@@ -39,6 +39,7 @@ class PersonaRequest extends FormRequest
                 "barrio"=> "required",
                 "id_localidad"=> "required",
                 "telefono"=> "required",
+                "correo" => "required"
         ];
     }
 }

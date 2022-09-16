@@ -24,7 +24,8 @@ class BaseRepository implements IRepository {
     }
 
     public function store($data){
-        return $this->model->fill($data)->save();
+        $this->model->fill($data)->save();
+        return $this->model;
     }
     public function update($data,$id){
         return $this->model->findOrFail($id)->fill($data)->save();
