@@ -18,14 +18,7 @@ class BaseStore  extends Controller{
         $this->request = $request;
     }
 
-    private function  responseSuccess(Model $model){
-        return response()->json([
-            "status"=> true,
-            "data"=> $model,
-            "message" => "El registro se inserto correctamente"
-        ]
-        );
-    }
+
 
     public function __invoke()
     {
