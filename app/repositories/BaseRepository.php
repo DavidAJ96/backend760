@@ -5,7 +5,7 @@ use App\repositories\interfaces\IRepository;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Database\Eloquent\Model;
 
-class BaseRepository implements IRepository {
+abstract class BaseRepository implements IRepository {
     protected $model;
     protected $relations = [];
     protected $order = '';
@@ -23,6 +23,12 @@ class BaseRepository implements IRepository {
         return $this->setOrder($this->model->get());
     }
 
+    public function find($id){
+        $this->withRelations();
+        return $this->model->findOrFail($id);
+    }
+
+
     public function store($data){
         $this->model->fill($data)->save();
         return $this->model;
@@ -33,9 +39,7 @@ class BaseRepository implements IRepository {
         return $model;
     }
     public function delete($id){}
-    public function search($search){
-
-    }
+    public abstract function search($search);
 
     public function setOrder($data){
         return $data->sortBy(function($query){

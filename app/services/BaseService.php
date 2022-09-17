@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use InvalidArgumentException;
 
-class BaseService {
+abstract class BaseService {
 
     protected $repository;
 
@@ -16,6 +16,15 @@ class BaseService {
     {
         $this->repository = $repo;
     }
+
+    public function getAll(){
+        return $this->repository->getAll();
+    }
+
+    public function find($id){
+        return $this->repository->find($id);
+    }
+
 
     public function delete($id){
         DB::beginTransaction();
@@ -75,7 +84,7 @@ class BaseService {
 
     }
 
-
+    public abstract function setFilter(Request $filters);
 
     public function getRepository(){
         return $this->repository;
