@@ -2,6 +2,7 @@
 namespace App\repositories;
 
 use App\repositories\interfaces\IRepository;
+use Exception;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Database\Eloquent\Model;
 
@@ -38,7 +39,12 @@ abstract class BaseRepository implements IRepository {
         $model->save();
         return $model;
     }
-    public function delete($id){}
+    public function delete($id){
+       $model = $this->model->findOrFail($id);
+
+       $model->delete();
+       return $model;
+    }
     public abstract function search($search);
 
     public function setOrder($data){

@@ -18,12 +18,15 @@ class BaseIndex extends Controller{
     $this->request = $request;
    }
 
-   protected function responseSuccess(BaseJsonResource $resource){
-     return response()->json([
-        "status"=>true,
-        "data"=> $resource
-     ],200);
+
+   protected function responseException(BaseJsonResource $resource, string $message){
+    return response()->json([
+       "status"=>true,
+       "data"=> $resource,
+       "message" => $message
+    ],422);
    }
+
 
     public function getService(): BaseService{
         return $this->service;

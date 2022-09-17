@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Persona extends Model
 {
-    use HasFactory;
+    use HasFactory,SoftDeletes;
     protected $table = "persona";
     protected $fillable = [
         "id",
@@ -27,6 +28,10 @@ class Persona extends Model
         "telefono",
         "correo"
     ];
+
+    protected $dates = ['deleted_at'];
+
+
     public function localidad(){
         return $this->belongsTo(Localidad::class,'id_localidad','id');
     }

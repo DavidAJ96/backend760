@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\Persona\PersonaDeleteController;
 use App\Http\Controllers\Api\Persona\PersonaIndexController;
 use App\Http\Controllers\Api\Persona\PersonaShowController;
 use App\Http\Controllers\Api\Persona\PersonaStoreController;
@@ -25,4 +26,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('personas',PersonaIndexController::class);
 Route::get('personas/{id}',PersonaShowController::class);
 Route::post('personas',PersonaStoreController::class);
+Route::delete('personas/{id}',PersonaDeleteController::class);
+
 //Route::resource('personas',PersonaController::class);
