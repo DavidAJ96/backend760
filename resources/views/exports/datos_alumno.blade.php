@@ -1,8 +1,6 @@
 <style>
     th{
-        height: 31px;
-        background-color:rgb(39, 39, 132);
-        color: whitesmoke;
+        background-color:teal;color:white;
         text-align: center;
     }
 </style>
@@ -15,8 +13,7 @@
     </tr>
     <tr>
         <th style="width: 70px; height: 31px;
-        background-color:blue;color:white!important;
-        text-align: center;">Legajo</th>
+       ">Legajo</th>
         <th style="width: 70px;">Libro</th>
         <th style="width: 70px;">Folio</th>
         <th style="width: 80px;">Documento</th>
