@@ -1,6 +1,7 @@
 <?php
 namespace App\services;
 
+use App\Exports\AlumnoExport;
 use App\Http\Requests\PersonaRequest;
 use App\repositories\AlumnoRepository;
 use Illuminate\Http\Request;
@@ -9,6 +10,8 @@ class AlumnoService extends BaseService{
     public function __construct()
     {
         parent::__construct(new AlumnoRepository());
+        $this->setNameOfExcelExport(AlumnoExport::class);
+        $this->setFileName("Listado_Alumnos");
     }
 
     public function setFilter(Request $filters)

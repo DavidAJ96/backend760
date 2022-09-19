@@ -7,15 +7,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use InvalidArgumentException;
+use Maatwebsite\Excel\Facades\Excel;
 
 abstract class BaseService {
 
     protected $repository;
-
+    private $nameOfExcelExport = "";
+    private string $fileName= "";
     public function __construct($repo)
     {
         $this->repository = $repo;
-    }
+     }
 
     public function getAll(){
         return $this->repository->getAll();
@@ -33,6 +35,14 @@ abstract class BaseService {
           Log::info($e->getMessage());
           throw new InvalidArgumentException("No se encontro el registro");
        }
+    }
+
+    public function exportExcel($data){
+        if($this->nameOfExcelExport != null){
+            $namespace = '\\'.$this->nameOfExcelExport;
+            return Excel::download( new $namespace($data),$this->getFileName().'.xls');
+        }
+        throw new InvalidArgumentException("La exportacion a excel no esta definida");
     }
 
 
@@ -107,4 +117,44 @@ abstract class BaseService {
     }
 
 
+
+    /**
+     * Get the value of fileName
+     */
+    public function getFileName()
+    {
+        return $this->fileName;
+    }
+
+    /**
+     * Set the value of fileName
+     *
+     * @return  self
+     */
+    public function setFileName($fileName)
+    {
+        $this->fileName = $fileName;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of nameOfExcelExport
+     */
+    public function getNameOfExcelExport()
+    {
+        return $this->nameOfExcelExport;
+    }
+
+    /**
+     * Set the value of nameOfExcelExport
+     *
+     * @return  self
+     */
+    public function setNameOfExcelExport($nameOfExcelExport)
+    {
+        $this->nameOfExcelExport = $nameOfExcelExport;
+
+        return $this;
+    }
 }

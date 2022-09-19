@@ -12,12 +12,12 @@ use Maatwebsite\Excel\Facades\Excel;
 class BaseIndex extends BaseController{
 
     private Request $request;
-    private $nameOfExcelExport;
-   public function __construct(BaseService $service,Request $request,string $nameOfResource,string $nameOfExcelExport = null)
+
+   public function __construct(BaseService $service,Request $request,$nameOfResource)
    {
     parent::__construct($service,$nameOfResource);
     $this->request = $request;
-    $this->nameOfExcelExport = $nameOfExcelExport;
+
    }
 
    public function __invoke(){
@@ -26,8 +26,8 @@ class BaseIndex extends BaseController{
 
         try{
             $data = $this->getCollectionResource($this->getService()->getAll());
-            if($this->getRequest()->export='excel'){
-                return $this->exportExcel($data);
+            if($this->getRequest()->export=='excel'){
+                return $this->getService()->exportExcel($data);
             }
             return response()->json($data);
         } catch(InvalidArgumentException $e){
@@ -36,13 +36,6 @@ class BaseIndex extends BaseController{
 
    }
 
-    protected function exportExcel($data){
-        if($this->nameOfExcelExport != null){
-            $namespace = '\\'.$this->nameOfExcelExport;
-            return Excel::download( new $namespace($data),'archivo.xls');
-        }
-        throw new InvalidArgumentException("La exportacion a excel no esta definida");
-    }
 
 
 
