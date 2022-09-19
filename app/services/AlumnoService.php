@@ -9,7 +9,9 @@ use Illuminate\Http\Request;
 class AlumnoService extends BaseService{
     public function __construct()
     {
-        parent::__construct(new AlumnoRepository(),AlumnoExport::class);
+        parent::__construct(new AlumnoRepository());
+        $this->setNameOfExcelExport(AlumnoExport::class);
+        $this->setFileName("Listado_Alumnos");
     }
 
     public function setFilter(Request $filters)
