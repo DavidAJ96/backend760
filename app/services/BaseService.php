@@ -7,14 +7,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use InvalidArgumentException;
+use Maatwebsite\Excel\Facades\Excel;
 
 abstract class BaseService {
 
     protected $repository;
-
-    public function __construct($repo)
+    private $nameOfExcelExport;
+    public function __construct($repo,string $nameOfExcelExport = null)
     {
         $this->repository = $repo;
+        $this->nameOfExcelExport = $nameOfExcelExport;
     }
 
     public function getAll(){
@@ -33,6 +35,14 @@ abstract class BaseService {
           Log::info($e->getMessage());
           throw new InvalidArgumentException("No se encontro el registro");
        }
+    }
+
+    public function exportExcel($data){
+        if($this->nameOfExcelExport != null){
+            $namespace = '\\'.$this->nameOfExcelExport;
+            return Excel::download( new $namespace($data),'archivo.xls');
+        }
+        throw new InvalidArgumentException("La exportacion a excel no esta definida");
     }
 
 

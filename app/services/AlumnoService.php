@@ -1,6 +1,7 @@
 <?php
 namespace App\services;
 
+use App\Exports\AlumnoExport;
 use App\Http\Requests\PersonaRequest;
 use App\repositories\AlumnoRepository;
 use Illuminate\Http\Request;
@@ -8,7 +9,7 @@ use Illuminate\Http\Request;
 class AlumnoService extends BaseService{
     public function __construct()
     {
-        parent::__construct(new AlumnoRepository());
+        parent::__construct(new AlumnoRepository(),AlumnoExport::class);
     }
 
     public function setFilter(Request $filters)
