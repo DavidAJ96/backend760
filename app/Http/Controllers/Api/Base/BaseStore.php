@@ -3,19 +3,21 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Api\Base;
 
 use App\Http\Controllers\Controller;
+use App\Http\DTOs\BaseJsonResource;
 use App\services\BaseService;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Http\FormRequest;
 use InvalidArgumentException;
 
-class BaseStore  extends Controller{
-    private BaseService $service;
-    private FormRequest $request;
+class BaseStore  extends BaseController{
 
-    public function __construct(BaseService $service, FormRequest $request)
+    private FormRequest $request;
+    private string $nameOfResource;
+    public function __construct(BaseService $service, FormRequest $request, string $resource)
     {
-        $this->service = $service;
+        parent::__construct($service);
         $this->request = $request;
+        $this->nameOfResource = $resource;
     }
 
 
@@ -24,26 +26,15 @@ class BaseStore  extends Controller{
     {
         try{
             $model = $this->getService()->store($this->getRequest()->validated());
-            return response()->json([
-                "status"=> true,
-                "data"=> $model,
-                "message" => "El registro se inserto correctamente"
-            ]
-            );
+            $namespace = '\\'.$this->nameOfResource;
+
+            return $this->responseSuccess(new $namespace($model),"El registro se guardo con exito");
+
         }catch(InvalidArgumentException $e){
-            return response()->json(
-                [
-                    "status"=>false,
-                    "message"=> $e->getMessage(),
-                    "data"=>$this->getRequest()->validated()
-                ],422
-                );
+            return $this->responseException(new BaseJsonResource([]),$e->getMessage());
         }
     }
 
-    public function getService(): BaseService{
-        return $this->service;
-    }
 
     public function getRequest(): FormRequest {
         return $this->request;

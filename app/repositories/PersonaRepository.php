@@ -6,13 +6,13 @@ use App\Models\Persona;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\DB;
 
-class PersonaRepository extends BaseRepository{
+class PersonaRepository extends BasePersonaRepository{
 
     public function __construct()
     {
         parent::__construct(new Persona());
-        $this->relations = ['localidad'];
-        $this->order = 'localidad.localidad';
+        $this->relations = ['localidad','nacionalidad'];
+        $this->order = 'lugar_nacimiento';
     }
 
     public function search($search)

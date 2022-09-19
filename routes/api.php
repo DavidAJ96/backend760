@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\Api\Alumno\AlumnoDeleteController;
+use App\Http\Controllers\Api\Alumno\AlumnoIndexController;
+use App\Http\Controllers\Api\Alumno\AlumnoShowController;
+use App\Http\Controllers\Api\Alumno\AlumnoStoreController;
 use App\Http\Controllers\Api\Persona\PersonaDeleteController;
 use App\Http\Controllers\Api\Persona\PersonaIndexController;
 use App\Http\Controllers\Api\Persona\PersonaShowController;
@@ -27,5 +31,11 @@ Route::get('personas',PersonaIndexController::class);
 Route::get('personas/{id}',PersonaShowController::class);
 Route::post('personas',PersonaStoreController::class);
 Route::delete('personas/{id}',PersonaDeleteController::class);
+///////////////////////////////////
+// ENDPOINT ALUMNO
+Route::get('alumnos',AlumnoIndexController::class);
+Route::get('alumnos/{id}',AlumnoShowController::class);
+Route::post('alumnos',AlumnoStoreController::class);
+Route::delete('alumnos/{id}',AlumnoDeleteController::class);
 
 //Route::resource('personas',PersonaController::class);

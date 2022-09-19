@@ -21,7 +21,7 @@ abstract class BaseRepository implements IRepository {
 
     public function getAll(){
         $this->withRelations();
-        return $this->setOrder($this->model->get());
+        return $this->orderCollection($this->model->get());
     }
 
     public function find($id){
@@ -47,21 +47,25 @@ abstract class BaseRepository implements IRepository {
     }
     public abstract function search($search);
 
-    public function setOrder($data){
+    public function orderCollection($data){
+
         return $data->sortBy(function($query){
 
-            if(empty($this->oder)){
+            if(empty($this->order)){
                 return $query;
             }
             $keys = explode('.',$this->order);
             foreach($keys as $key){
                 $query = $query[$key];
+
             }
 
             return $query;
         });
     }
 
-
+    public function setOrder(string $order){
+        $this->order = $order;
+    }
 
 }

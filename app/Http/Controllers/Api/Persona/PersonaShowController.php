@@ -1,22 +1,15 @@
 <?php
 declare( strict_types = 1);
 namespace App\Http\Controllers\Api\Persona;
-
-use App\Http\Controllers\Api\Base\BaseIndex;
+use App\Http\Controllers\Api\Base\BaseShowController;
 use App\Http\DTOs\Persona\PersonaResource;
 use App\services\PersonaService;
-use Illuminate\Http\Request;
 
-class PersonaShowController extends BaseIndex{
+class PersonaShowController extends BaseShowController{
 
-    public function __construct(PersonaService $servicio, Request $req)
+    public function __construct(PersonaService $servicio)
     {
-       parent::__construct($servicio,$req);
-    }
-
-    public function __invoke($id)
-    {
-       return $this->responseSuccess(new PersonaResource( $this->getService()->find($id)));
+       parent::__construct($servicio,PersonaResource::class);
     }
 
 }

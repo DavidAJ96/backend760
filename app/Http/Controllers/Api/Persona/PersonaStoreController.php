@@ -8,6 +8,6 @@ use App\services\PersonaService;
 class PersonaStoreController extends BaseStore {
     public function __construct(PersonaService $personaService, PersonaRequest $request)
     {
-      parent::__construct($personaService,$request);
+      parent::__construct($personaService,$request,PersonaResource::class);
     }
 }

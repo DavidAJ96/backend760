@@ -17,6 +17,7 @@ class BaseResourceCollection extends ResourceCollection
     {
         $perPage = request("per_page") ?? 20;
         $currentPage = request("page") ?? 1;
+        error_log(count($array));
         return new LengthAwarePaginator(array_values($array), count($array), $perPage, $currentPage);
     }
 }

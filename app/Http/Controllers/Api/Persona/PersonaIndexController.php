@@ -9,14 +9,8 @@ use Illuminate\Http\Request;
 class PersonaIndexController extends BaseIndex {
     public function __construct(PersonaService $personaService, Request $request)
     {
-        parent::__construct($personaService,$request);
+        parent::__construct($personaService,$request,PersonaCollection::class);
     }
 
-    public function __invoke()
-    {
-        $this->getService()->setFilter($this->getRequest());
-        $data = $this->getService()->getRepository()->getAll();
-        return response()->json(new PersonaCollection($data));
-    }
 
 }

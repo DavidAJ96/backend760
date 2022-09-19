@@ -3,6 +3,7 @@ namespace App\Http\DTOs\Persona;
 
 use App\Http\DTOs\BaseJsonResource;
 use App\Http\DTOs\Localidad\LocalidadResource;
+use App\Http\DTOs\Pais\PaisResource;
 
 class PersonaResource extends BaseJsonResource
 {
@@ -24,7 +25,8 @@ class PersonaResource extends BaseJsonResource
             'barrio' => $this->barrio,
             'id_localidad' => $this->id_localidad,
             'telefono' => $this->telefono,
-            'localidad' => new LocalidadResource($this->localidad)
+            'localidad' => new LocalidadResource($this->localidad),
+            'nacionalidad' => new PaisResource($this->nacionalidad)
          ];
     }
 }

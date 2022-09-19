@@ -1,9 +1,10 @@
 <?php
-namespace App\Http\DTOs\Persona;
+namespace App\Http\DTOs\Alumno;
 
 use App\Http\DTOs\BaseResourceCollection;
+use App\Http\DTOs\Pais\PaisResource;
 
-class PersonaCollection extends BaseResourceCollection
+class AlumnoCollection extends BaseResourceCollection
 {
     /**
      * Transform the resource collection into an array.
@@ -14,8 +15,9 @@ class PersonaCollection extends BaseResourceCollection
     public function toArray($request)
     {
         $data = [
-            'data' => PersonaResource::collection($this->collection),
+            'data' => PaisResource::collection($this->collection),
         ];
+
         return $this->toArrayWithPagination($data);
     }
 }

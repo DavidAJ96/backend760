@@ -21,8 +21,18 @@ abstract class BaseService {
         return $this->repository->getAll();
     }
 
+    public function getOrder(){
+        return $this->getRepository()->getOrder();
+    }
+
+
     public function find($id){
-        return $this->repository->find($id);
+       try{
+         return $this->repository->find($id);
+       } catch(Exception $e){
+          Log::info($e->getMessage());
+          throw new InvalidArgumentException("No se encontro el registro");
+       }
     }
 
 
@@ -88,6 +98,12 @@ abstract class BaseService {
 
     public function getRepository(){
         return $this->repository;
+    }
+
+    public function setOrder($order){
+          if($order != null){
+            $this->getRepository()->setOrder($order);
+        }
     }
 
 

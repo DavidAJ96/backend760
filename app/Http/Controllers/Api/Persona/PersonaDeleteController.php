@@ -9,8 +9,8 @@ use Illuminate\Http\Request;
 
 class PersonaDeleteController extends BaseDelete {
 
-    public function __construct(PersonaService $personaService,Request $req)
+    public function __construct(PersonaService $personaService)
     {
-        parent::__construct($personaService,$req,PersonaResource::class);
+        parent::__construct($personaService,PersonaResource::class);
     }
 }

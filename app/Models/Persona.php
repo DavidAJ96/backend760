@@ -36,4 +36,8 @@ class Persona extends Model
         return $this->belongsTo(Localidad::class,'id_localidad','id');
     }
 
+    public function nacionalidad(){
+        return $this->belongsTo(Pais::class,'id_nacionalidad','id');
+    }
+
 }
