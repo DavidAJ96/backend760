@@ -3,7 +3,7 @@ namespace App\Http\DTOs\Localidad;
 
 use App\Http\DTOs\BaseResourceCollection;
 
-class PersonaCollection extends BaseResourceCollection
+class LocalidadCollection extends BaseResourceCollection
 {
     /**
      * Transform the resource collection into an array.

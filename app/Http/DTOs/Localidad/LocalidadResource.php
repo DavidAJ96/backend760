@@ -10,9 +10,8 @@ class LocalidadResource extends BaseJsonResource
         return [
             'id' => $this->id,
             'id_provincia' => $this->id_provincia,
-            'localidad' => $this->localidad
-
-
+            'localidad' => $this->localidad,
+            'provincia' => $this->provincia
          ];
     }
 }

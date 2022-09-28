@@ -17,6 +17,7 @@ class AlumnoResource extends BaseJsonResource
             'folio' => $this->folio,
             'fecha_ingreso' => $this->fecha_ingreso,
             'persona' => new PersonaResource($this->persona),
+            'estado' =>$this->estado,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'deleted_at' => $this->deleted_at,

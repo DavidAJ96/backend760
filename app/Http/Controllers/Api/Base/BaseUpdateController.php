@@ -27,7 +27,7 @@ class BaseUpdateController  extends BaseController{
         try{
             $model = $this->getService()->update($this->getRequest()->validated(),$id);
 
-            return $this->responseSuccess($this->getJSONResource($model),"El registro se inserto correctamente");
+            return $this->responseSuccess($this->getJSONResource($model),"El registro se actualizo correctamente");
 
         }catch(InvalidArgumentException $e){
             return $this->responseException(new BaseJsonResource([]),$e->getMessage() );

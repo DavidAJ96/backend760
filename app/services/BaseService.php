@@ -7,8 +7,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use InvalidArgumentException;
+use Maatwebsite\Excel\Excel as ExcelExcel;
 use Maatwebsite\Excel\Facades\Excel;
-
+use Barryvdh\DomPDF\Facade\Pdf;
 abstract class BaseService {
 
     protected $repository;
@@ -20,7 +21,12 @@ abstract class BaseService {
      }
 
     public function getAll(){
-        return $this->repository->getAll();
+        try{
+            return $this->repository->getAll();
+          } catch(Exception $e){
+             Log::info($e->getMessage());
+             throw new InvalidArgumentException("No se pudo realizar su consulta");
+          }
     }
 
     public function getOrder(){
@@ -40,11 +46,20 @@ abstract class BaseService {
     public function exportExcel($data){
         if($this->nameOfExcelExport != null){
             $namespace = '\\'.$this->nameOfExcelExport;
-            return Excel::download( new $namespace($data),$this->getFileName().'.xls');
+            return Excel::download( new $namespace($data),$this->getFileName().'.xls',ExcelExcel::XLS);
         }
         throw new InvalidArgumentException("La exportacion a excel no esta definida");
     }
 
+    public function exportPDF($data){
+        if($this->nameOfExcelExport != null){
+            $namespace = '\\'.$this->nameOfExcelExport;
+            $pdf = new $namespace($data);
+            return $pdf->getPDF($this->getFileName());
+        }
+
+        throw new InvalidArgumentException("La exportacion a excel no esta definida");
+    }
 
     public function delete($id){
         DB::beginTransaction();
@@ -82,6 +97,13 @@ abstract class BaseService {
 
         return $model;
 
+    }
+
+    public function setGroupBy($atributo){
+        if(is_null($atributo)){
+            return;
+        }
+        $this->getRepository()->setGroup(explode(',',$atributo));
     }
 
 

@@ -4,12 +4,14 @@ namespace App\repositories;
 use App\repositories\interfaces\IRepository;
 use Exception;
 use GuzzleHttp\Psr7\Request;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 abstract class BaseRepository implements IRepository {
     protected $model;
     protected $relations = [];
     protected $order = '';
+    protected $group = [];
     public function __construct(Model $model)
     {
         $this->model = $model;
@@ -19,8 +21,15 @@ abstract class BaseRepository implements IRepository {
        $this->model = $this->model->with($this->relations);
     }
 
+    private function addGroupBy(){
+        foreach($this->group as $atributo){
+            $this->groupBy($atributo);
+        }
+    }
+
     public function getAll(){
         $this->withRelations();
+        $this->addGroupBy();
         return $this->orderCollection($this->model->get());
     }
 
@@ -29,6 +38,9 @@ abstract class BaseRepository implements IRepository {
         return $this->model->findOrFail($id);
     }
 
+    public function groupBy(string $atributo){
+        $this->model = $this->model->groupBy($atributo);
+    }
 
     public function store($data){
         $this->model->fill($data)->save();
@@ -68,4 +80,24 @@ abstract class BaseRepository implements IRepository {
         $this->order = $order;
     }
 
+
+    /**
+     * Get the value of group
+     */
+    public function getGroup()
+    {
+        return $this->group;
+    }
+
+    /**
+     * Set the value of group
+     *
+     * @return  self
+     */
+    public function setGroup($group)
+    {
+        $this->group = $group;
+
+        return $this;
+    }
 }

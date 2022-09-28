@@ -21,13 +21,18 @@ class BaseIndex extends BaseController{
    }
 
    public function __invoke(){
-        $this->getService()->setFilter($this->getRequest());
-        $this->getService()->setOrder($this->getRequest()->orderby);
 
         try{
+            $this->getService()->setFilter($this->getRequest());
+            //$this->getService()->setGroupBy($this->getRequest()->groupby);
+            $this->getService()->setOrder($this->getRequest()->orderby);
+
             $data = $this->getCollectionResource($this->getService()->getAll());
             if($this->getRequest()->export=='excel'){
                 return $this->getService()->exportExcel($data);
+            }
+            if($this->getRequest()->export=='pdf'){
+                return $this->getService()->exportPDF($data);
             }
             return response()->json($data);
         } catch(InvalidArgumentException $e){
